@@ -1,0 +1,17 @@
+server:
+  port : 8080
+
+spring:
+  application:
+    name: order-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/arch_test
+    username: arch
+    password: kafka
+
+logging:
+  level:
+    org:
+      jooq:
+        tools:
+          LoggerListener: debug

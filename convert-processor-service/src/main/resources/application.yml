@@ -1,0 +1,31 @@
+server:
+  port : 8084
+
+spring:
+  application:
+    name: convert-processor-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/arch_test
+    username: arch
+    password: kafka
+  cloud:
+    stream:
+      bindings:
+        process-in-0:
+          destination: outbox.event.convert
+
+        process-out-0:
+          destination: outbox.event.payment
+      kafka.binder:
+        headers: true
+        brokers: 127.0.0.1
+        defaultBrokerPort: 29092
+      default:
+        group: ${spring.application.name}
+
+logging:
+  level:
+    org:
+      jooq:
+        tools:
+          LoggerListener: debug

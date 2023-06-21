@@ -1,0 +1,29 @@
+server:
+  port : 8082
+
+spring:
+  application:
+    name: stock-processor-service
+  cloud:
+    stream:
+      bindings:
+        process-in-0:
+          destination: outbox.event.stock
+        process-out-0:
+          destination: outbox.event.notification
+      kafka.binder:
+        headers: true
+        brokers: 127.0.0.1
+        defaultBrokerPort: 29092
+      default:
+        group: ${spring.application.name}
+
+
+
+  jackson:
+    property-naming-strategy: "SNAKE_CASE"
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+      ADJUST_DATES_TO_CONTEXT_TIME_ZONE: false
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false

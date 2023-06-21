@@ -1,0 +1,31 @@
+server:
+  port : 8081
+
+spring:
+  application:
+    name: notification-processor-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/arch_test
+    username: arch
+    password: kafka
+
+  kafka:
+    bootstrap-servers: localhost:29092
+    consumer:
+      group-id: ${spring.application.name}
+
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+
+kafka:
+  bootstrapAddress: localhost:29092
+  topics:
+    in-topic: outbox.event.notification
+
+logging:
+  level:
+    org:
+      jooq:
+        tools:
+          LoggerListener: debug
